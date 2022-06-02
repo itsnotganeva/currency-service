@@ -65,10 +65,8 @@ public class DatabaseConfig {
     @Bean
     public SpringLiquibase liquibase(DataSource dataSource) {
         SpringLiquibase liquibase = new SpringLiquibase();
-
         liquibase.setChangeLog(changeLogFile);
         liquibase.setDataSource(dataSource);
-
         return liquibase;
     }
 
@@ -77,7 +75,6 @@ public class DatabaseConfig {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager
                 .setEntityManagerFactory(entityManagerFactory(dataSource()).getObject());
-
         return transactionManager;
     }
 
@@ -104,5 +101,4 @@ public class DatabaseConfig {
         properties.put(Environment.SHOW_SQL, showSql);
         return properties;
     }
-
 }

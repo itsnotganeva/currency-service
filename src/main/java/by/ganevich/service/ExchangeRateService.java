@@ -20,7 +20,7 @@ public class ExchangeRateService {
         return exchangeRateRepository.save(exchangeRate);
     }
 
-    public List<ExchangeRate> readAll() {
+    public List<ExchangeRate> getAll() {
         return exchangeRateRepository.findAll();
     }
 

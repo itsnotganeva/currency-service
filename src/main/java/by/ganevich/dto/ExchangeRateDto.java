@@ -1,4 +1,4 @@
-package by.ganevich.service.dto;
+package by.ganevich.dto;
 
 import by.ganevich.entity.Currency;
 import lombok.Data;

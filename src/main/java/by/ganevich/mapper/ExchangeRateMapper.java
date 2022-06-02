@@ -1,6 +1,6 @@
 package by.ganevich.mapper;
 
-import by.ganevich.service.dto.ExchangeRateDto;
+import by.ganevich.dto.ExchangeRateDto;
 import by.ganevich.entity.ExchangeRate;
 import org.mapstruct.Mapper;
 
