@@ -6,7 +6,6 @@ import by.ganevich.entity.ExchangeRate;
 import by.ganevich.mapper.ExchangeRateMapper;
 import by.ganevich.parser.JsonParser;
 import by.ganevich.service.ExchangeRateService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
