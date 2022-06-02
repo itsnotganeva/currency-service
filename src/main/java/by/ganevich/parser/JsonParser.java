@@ -31,7 +31,7 @@ public class JsonParser {
             exchangeRates.add(byn);
             return exchangeRates;
         } else {
-            rates.stream().map(r -> setExchangeRate(r, r.getCurrency(), parsedJson));
+            rates.forEach(r -> setExchangeRate(r, r.getCurrency(), parsedJson));
             return rates;
         }
     }

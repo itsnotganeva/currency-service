@@ -7,6 +7,9 @@ import by.ganevich.mapper.ExchangeRateMapper;
 import by.ganevich.parser.JsonParser;
 import by.ganevich.service.ExchangeRateService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,26 +21,28 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
+@Slf4j
+@RequiredArgsConstructor
 public class ExchangeRateController {
 
     private final ExchangeRateService exchangeRateService;
     private final ExchangeRateMapper exchangeRateMapper;
     private final JsonParser jsonParser;
 
+    @Value("${api.url}")
+    private String url;
+
     @Scheduled(fixedRate = 3600000)
     @GetMapping(value = "/rates-from-api")
     public ResponseEntity<List<ExchangeRateDto>> getRate() {
-
-        String url = "https://belarusbank.by/api/kursExchange";
         RestTemplate restTemplate = new RestTemplate();
-
         Object[] rates = restTemplate.getForObject(url, Object[].class);
 
         List<ExchangeRate> exchangeRates = jsonParser.parseJson(rates[0].toString(), exchangeRateService.readAll());
         exchangeRates.forEach(rate -> exchangeRateService.save(rate));
 
         List<ExchangeRateDto> exchangeRatesDto = exchangeRateMapper.toDtoList(exchangeRates);
+        log.info("Exchange rates are updated");
         return new ResponseEntity<>(exchangeRatesDto, HttpStatus.OK);
     }
 
