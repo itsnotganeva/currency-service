@@ -16,7 +16,7 @@ public class WebClient {
 
     private final ExchangeRateService exchangeRateService;
     private final JsonParser jsonParser;
-    @Value("${api.url}")
+    @Value("${belarusbank.api.url}")
     private String url;
 
     public List<ExchangeRate> getCurrentRates() {
