@@ -1,6 +1,5 @@
 package by.ganevich.config;
 
-import liquibase.integration.spring.SpringLiquibase;
 import org.hibernate.cfg.Environment;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.FactoryBean;
@@ -28,13 +27,13 @@ import java.util.Properties;
 @PropertySource("classpath:application.properties")
 public class DatabaseConfig {
 
-    @Value("${postgres.username}")
+    @Value("${spring.datasource.username}")
     private String username;
 
-    @Value("${password}")
+    @Value("${spring.datasource.password}")
     private String password;
 
-    @Value("${url}")
+    @Value("${spring.datasource.url}")
     private String url;
 
     @Value("${driver}")
@@ -49,8 +48,6 @@ public class DatabaseConfig {
     @Value("${spring.jpa.show-sql}")
     private String showSql;
 
-    @Value("${spring.liquibase.change-log}")
-    private String changeLogFile;
 
     @Bean
     public DataSource dataSource() {
@@ -60,14 +57,6 @@ public class DatabaseConfig {
         dataSource.setUrl(url);
         dataSource.setDriverClassName(driver);
         return dataSource;
-    }
-
-    @Bean
-    public SpringLiquibase liquibase(DataSource dataSource) {
-        SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setChangeLog(changeLogFile);
-        liquibase.setDataSource(dataSource);
-        return liquibase;
     }
 
     @Bean
