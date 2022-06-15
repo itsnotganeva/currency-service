@@ -42,10 +42,10 @@ public class ExchangeRateController {
     }
 
     @GetMapping(value = "/rates/{currency}")
-    public ResponseEntity<ExchangeRateDto> findRate(@PathVariable(name = "currency") Currency currency) {
-        ExchangeRate exchangeRate = exchangeRateService.getByCurrency(currency);
+    public ExchangeRateDto findRate(@PathVariable(name = "currency") String currency) {
+        ExchangeRate exchangeRate = exchangeRateService.getByCurrency(Currency.valueOf(currency));
         ExchangeRateDto exchangeRateDto = exchangeRateMapper.toDto(exchangeRate);
-        return new ResponseEntity<>(exchangeRateDto, HttpStatus.OK);
+        return exchangeRateDto;
     }
 
 }
